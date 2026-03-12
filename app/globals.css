@@ -1,0 +1,146 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Be Happy — Fondos */
+  --warm-white: #FDFAF6;
+  --cream: #F7F0E8;
+  --blush-light: #FDF0EE;
+  --beige: #E8DCCF;
+  --sand: #D4C4B0;
+
+  /* Rosa principal */
+  --rose-pale: #F2D4CC;
+  --rose-mid: #DFA898;
+  --rose: #C47F72;
+  --rose-deep: #A05E54;
+
+  /* Terracota */
+  --terracota: #C4906A;
+  --terracota-mid: #A87050;
+
+  /* Verde salvia (complementario) */
+  --sage-light: #D8E8DC;
+  --sage: #7A9E85;
+  --sage-deep: #527A60;
+
+  /* Neutros */
+  --charcoal: #2E2825;
+  --charcoal-mid: #5A504A;
+  --muted-color: #9A8A80;
+  --gold: #C8A878;
+
+  /* Espaciado */
+  --header-h: 64px;
+  --page-px: clamp(16px, 5vw, 80px);
+  --section-py: clamp(48px, 8vw, 96px);
+
+  /* Sombras */
+  --shadow-card: 0 16px 48px rgba(196, 127, 114, 0.12);
+  --shadow-drawer: 0 -4px 32px rgba(46, 40, 37, 0.08);
+
+  /* shadcn tokens mapped to Be Happy palette */
+  --background: #FDFAF6;
+  --foreground: #2E2825;
+  --card: #FDFAF6;
+  --card-foreground: #2E2825;
+  --popover: #FDFAF6;
+  --popover-foreground: #2E2825;
+  --primary: #C47F72;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F7F0E8;
+  --secondary-foreground: #2E2825;
+  --muted: #F7F0E8;
+  --muted-foreground: #9A8A80;
+  --accent: #E8DCCF;
+  --accent-foreground: #2E2825;
+  --destructive: #A05E54;
+  --destructive-foreground: #FFFFFF;
+  --border: #DFA898;
+  --input: #DFA898;
+  --ring: #C47F72;
+  --chart-1: #C47F72;
+  --chart-2: #7A9E85;
+  --chart-3: #C4906A;
+  --chart-4: #DFA898;
+  --chart-5: #D4C4B0;
+  --radius: 2px;
+}
+
+@theme inline {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-mono: 'Geist Mono', monospace;
+  
+  /* Be Happy Colors */
+  --color-warm-white: var(--warm-white);
+  --color-cream: var(--cream);
+  --color-blush-light: var(--blush-light);
+  --color-beige: var(--beige);
+  --color-sand: var(--sand);
+  --color-rose-pale: var(--rose-pale);
+  --color-rose-mid: var(--rose-mid);
+  --color-rose: var(--rose);
+  --color-rose-deep: var(--rose-deep);
+  --color-terracota: var(--terracota);
+  --color-terracota-mid: var(--terracota-mid);
+  --color-sage-light: var(--sage-light);
+  --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-mid: var(--charcoal-mid);
+  --color-muted-color: var(--muted-color);
+  --color-gold: var(--gold);
+  
+  /* shadcn tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius));
+  --radius-md: calc(var(--radius) + 4px);
+  --radius-lg: calc(var(--radius) + 10px);
+  --radius-xl: calc(var(--radius) + 16px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-warm-white text-charcoal;
+  }
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
