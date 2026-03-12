@@ -1,46 +1,62 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Heart, Minus, Plus, Check, Package, Share2, Leaf, Sparkles } from 'lucide-react'
-import { Product, categoryLabels, formatPrice, getRelatedProducts } from '@/lib/products'
-import { useCart } from '@/lib/cart'
-import { ProductCard } from './product-card'
-import { cn } from '@/lib/utils'
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  Heart,
+  Minus,
+  Plus,
+  Check,
+  Package,
+  Share2,
+  Leaf,
+  Sparkles,
+} from "lucide-react";
+import {
+  Product,
+  categoryLabels,
+  formatPrice,
+  getRelatedProducts,
+} from "@/lib/products";
+import { useCart } from "@/lib/cart";
+import { ProductCard } from "./product-card";
+import { cn } from "@/lib/utils";
 
 interface ProductDetailProps {
-  product: Product
+  product: Product;
 }
 
 export function ProductDetail({ product }: ProductDetailProps) {
-  const [selectedImage, setSelectedImage] = useState(0)
-  const [quantity, setQuantity] = useState(1)
-  const [isAdded, setIsAdded] = useState(false)
-  const [isWishlisted, setIsWishlisted] = useState(false)
-  const { addItem } = useCart()
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [isAdded, setIsAdded] = useState(false);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addItem } = useCart();
 
-  const relatedProducts = getRelatedProducts(product.slug, product.category, 4)
+  const relatedProducts = getRelatedProducts(product.slug, product.category, 4);
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       addItem({
+        id: product.id,
         productId: product.id,
         name: product.name,
         price: product.price,
-        image: product.images[0] || '/images/placeholder.jpg',
-      })
+        image: product.images[0] || "/images/placeholder.jpg",
+      });
     }
-    setIsAdded(true)
-    setTimeout(() => setIsAdded(false), 1500)
-  }
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
+  };
 
-  const categorySlug = product.category === 'COLLAR' 
-    ? 'collares' 
-    : product.category === 'PULSERA' 
-      ? 'pulseras' 
-      : 'tobilleras'
+  const categorySlug =
+    product.category === "COLLAR"
+      ? "collares"
+      : product.category === "PULSERA"
+        ? "pulseras"
+        : "tobilleras";
 
   return (
     <>
@@ -57,7 +73,9 @@ export function ProductDetail({ product }: ProductDetailProps) {
               {/* Main Image */}
               <div className="relative aspect-square overflow-hidden rounded-sm bg-rose-pale group">
                 <Image
-                  src={product.images[selectedImage] || '/images/placeholder.jpg'}
+                  src={
+                    product.images[selectedImage] || "/images/placeholder.jpg"
+                  }
                   alt={product.name}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -68,15 +86,16 @@ export function ProductDetail({ product }: ProductDetailProps) {
               {/* Thumbnails */}
               {product.images.length > 1 && (
                 <div className="flex gap-3 mt-4">
-                  {product.images.map((image, index) => (
+                  {product.images.map((image: string, index: number) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
+                      aria-label={`Ver imagen ${index + 1}`}
                       className={cn(
-                        'relative w-20 h-20 overflow-hidden rounded-sm border-2 transition-colors',
+                        "relative w-20 h-20 overflow-hidden rounded-sm border-2 transition-colors",
                         selectedImage === index
-                          ? 'border-rose'
-                          : 'border-transparent hover:border-rose-mid'
+                          ? "border-rose"
+                          : "border-transparent hover:border-rose-mid",
                       )}
                     >
                       <Image
@@ -99,9 +118,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
             >
               {/* Breadcrumb */}
               <nav className="flex items-center gap-2 font-sans text-[11px] text-muted-color mb-4">
-                <Link href="/" className="hover:text-rose transition-colors">Inicio</Link>
+                <Link href="/" className="hover:text-rose transition-colors">
+                  Inicio
+                </Link>
                 <span className="text-rose-mid">/</span>
-                <Link href={`/${categorySlug}`} className="hover:text-rose transition-colors">
+                <Link
+                  href={`/${categorySlug}`}
+                  className="hover:text-rose transition-colors"
+                >
                   {categoryLabels[product.category]}
                 </Link>
                 <span className="text-rose-mid">/</span>
@@ -141,7 +165,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
               {/* Material Badge */}
               {product.material && (
                 <p className="mt-4 font-sans text-xs text-muted-color">
-                  Material: <span className="text-charcoal-mid">{product.material}</span>
+                  Material:{" "}
+                  <span className="text-charcoal-mid">{product.material}</span>
                 </p>
               )}
 
@@ -176,10 +201,10 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 onClick={handleAddToCart}
                 whileTap={{ scale: 0.97 }}
                 className={cn(
-                  'mt-6 w-full py-4 font-sans text-[11px] font-medium uppercase tracking-[0.1em] rounded-sm flex items-center justify-center gap-2 transition-colors',
+                  "mt-6 w-full py-4 font-sans text-[11px] font-medium uppercase tracking-[0.1em] rounded-sm flex items-center justify-center gap-2 transition-colors",
                   isAdded
-                    ? 'bg-sage text-white'
-                    : 'bg-rose text-white hover:bg-rose-deep'
+                    ? "bg-sage text-white"
+                    : "bg-rose text-white hover:bg-rose-deep",
                 )}
               >
                 {isAdded ? (
@@ -188,7 +213,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                     Agregado al bolso
                   </>
                 ) : (
-                  'Agregar al bolso'
+                  "Agregar al bolso"
                 )}
               </motion.button>
 
@@ -196,14 +221,18 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <button
                 onClick={() => setIsWishlisted(!isWishlisted)}
                 className={cn(
-                  'mt-3 w-full py-3 border rounded-sm font-sans text-[11px] font-medium uppercase tracking-[0.1em] flex items-center justify-center gap-2 transition-colors',
+                  "mt-3 w-full py-3 border rounded-sm font-sans text-[11px] font-medium uppercase tracking-[0.1em] flex items-center justify-center gap-2 transition-colors",
                   isWishlisted
-                    ? 'border-rose bg-rose-pale/50 text-rose'
-                    : 'border-charcoal-mid text-charcoal-mid hover:border-rose hover:text-rose'
+                    ? "border-rose bg-rose-pale/50 text-rose"
+                    : "border-charcoal-mid text-charcoal-mid hover:border-rose hover:text-rose",
                 )}
               >
-                <Heart className={cn('w-4 h-4', isWishlisted && 'fill-current')} />
-                {isWishlisted ? 'Guardado en favoritos' : 'Guardar en favoritos'}
+                <Heart
+                  className={cn("w-4 h-4", isWishlisted && "fill-current")}
+                />
+                {isWishlisted
+                  ? "Guardado en favoritos"
+                  : "Guardar en favoritos"}
               </button>
 
               {/* Shipping Info */}
@@ -226,7 +255,9 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
               {/* Share */}
               <div className="mt-6 flex items-center gap-3">
-                <span className="font-sans text-xs text-muted-color">Compartir:</span>
+                <span className="font-sans text-xs text-muted-color">
+                  Compartir:
+                </span>
                 <a
                   href={`https://wa.me/?text=${encodeURIComponent(`Mira este accesorio de Be Happy: ${product.name}`)}`}
                   target="_blank"
@@ -258,5 +289,5 @@ export function ProductDetail({ product }: ProductDetailProps) {
         </section>
       )}
     </>
-  )
+  );
 }

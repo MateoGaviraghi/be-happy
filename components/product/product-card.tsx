@@ -1,52 +1,53 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Heart, Plus, Check } from 'lucide-react'
-import { Product, categoryLabels } from '@/lib/products'
-import { formatPrice } from '@/lib/products'
-import { useCart } from '@/lib/cart'
-import { cn } from '@/lib/utils'
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Heart, Plus, Check } from "lucide-react";
+import { Product, categoryLabels } from "@/lib/products";
+import { formatPrice } from "@/lib/products";
+import { useCart } from "@/lib/cart";
+import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
-  product: Product
-  index?: number
+  product: Product;
+  index?: number;
 }
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
-  const [isAdded, setIsAdded] = useState(false)
-  const [isWishlisted, setIsWishlisted] = useState(false)
-  const { addItem } = useCart()
+  const [isHovered, setIsHovered] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addItem } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    
+    e.preventDefault();
+    e.stopPropagation();
+
     addItem({
+      id: product.id,
       productId: product.id,
       name: product.name,
       price: product.price,
-      image: product.images[0] || '/images/placeholder.jpg',
-    })
-    
-    setIsAdded(true)
-    setTimeout(() => setIsAdded(false), 1500)
-  }
+      image: product.images[0] || "/images/placeholder.jpg",
+    });
+
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
+  };
 
   const handleWishlist = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setIsWishlisted(!isWishlisted)
-  }
+    e.preventDefault();
+    e.stopPropagation();
+    setIsWishlisted(!isWishlisted);
+  };
 
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-15%' }}
+      viewport={{ once: true, margin: "-15%" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -57,8 +58,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           animate={{
             y: isHovered ? -5 : 0,
             boxShadow: isHovered
-              ? '0 16px 48px rgba(196, 127, 114, 0.14)'
-              : '0 0 0 rgba(196, 127, 114, 0)',
+              ? "0 16px 48px rgba(196, 127, 114, 0.14)"
+              : "0 0 0 rgba(196, 127, 114, 0)",
           }}
           transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="bg-warm-white rounded-sm overflow-hidden"
@@ -71,7 +72,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               className="absolute inset-0"
             >
               <Image
-                src={product.images[0] || '/images/placeholder.jpg'}
+                src={product.images[0] || "/images/placeholder.jpg"}
                 alt={product.name}
                 fill
                 className="object-cover"
@@ -93,14 +94,18 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               animate={{ opacity: isHovered || isWishlisted ? 1 : 0 }}
               transition={{ duration: 0.25 }}
               className={cn(
-                'absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors',
+                "absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors",
                 isWishlisted
-                  ? 'bg-rose text-white'
-                  : 'bg-white/90 text-charcoal-mid hover:text-rose'
+                  ? "bg-rose text-white"
+                  : "bg-white/90 text-charcoal-mid hover:text-rose",
               )}
-              aria-label={isWishlisted ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+              aria-label={
+                isWishlisted ? "Quitar de favoritos" : "Agregar a favoritos"
+              }
             >
-              <Heart className={cn('w-4 h-4', isWishlisted && 'fill-current')} />
+              <Heart
+                className={cn("w-4 h-4", isWishlisted && "fill-current")}
+              />
             </motion.button>
           </div>
 
@@ -127,10 +132,10 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
                 className={cn(
-                  'w-[30px] h-[30px] rounded-full flex items-center justify-center transition-colors',
+                  "w-[30px] h-[30px] rounded-full flex items-center justify-center transition-colors",
                   isAdded
-                    ? 'bg-sage text-white'
-                    : 'bg-rose text-white hover:bg-rose-deep'
+                    ? "bg-sage text-white"
+                    : "bg-rose text-white hover:bg-rose-deep",
                 )}
                 aria-label="Agregar al carrito"
               >
@@ -145,5 +150,5 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         </motion.div>
       </Link>
     </motion.article>
-  )
+  );
 }
